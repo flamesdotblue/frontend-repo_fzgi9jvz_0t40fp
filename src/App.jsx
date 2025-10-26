@@ -1,28 +1,37 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Header from './components/Header.jsx';
+import InputPanel from './components/InputPanel.jsx';
+import ReflectionPanel from './components/ReflectionPanel.jsx';
+import SuggestionPanel from './components/SuggestionPanel.jsx';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [values, setValues] = useState({
+    soilType: 'Loam',
+    temperature: 26,
+    humidity: 60,
+    ph: 6.5,
+    rainfall: 800,
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Subtle top accent */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 h-40 bg-gradient-to-b from-green-100/80 to-transparent" />
 
-export default App
+      <Header />
+
+      <main className="px-6 md:px-10 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Input Values */}
+          <InputPanel values={values} onChange={setValues} />
+
+          {/* Field Data Reflection */}
+          <ReflectionPanel values={values} />
+
+          {/* Selected Crop Suggestion */}
+          <SuggestionPanel values={values} />
+        </div>
+      </main>
+    </div>
+  );
+}
